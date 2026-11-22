@@ -6,15 +6,16 @@
 <title>Colouring Clue Conundrum</title>
 <style>
 :root {font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#182235;background:#f5f7fb}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:26px 14px 60px}.app{max-width:800px;margin:auto}.eyebrow{font-size:11px;letter-spacing:.17em;font-weight:800;color:#65758e;text-transform:uppercase}h1{font-size:clamp(27px,5vw,38px);letter-spacing:-.045em;margin:7px 0 6px}.subtitle{color:#64748b;margin:0 0 19px;line-height:1.5;font-size:14px}.dimensions{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-bottom:13px;font-size:13px;color:#37465c}.dimensions label{font-weight:700}.dimensions input{width:70px;border:1px solid #cbd5e1;border-radius:8px;padding:9px;font:inherit}.dimensions .hint{color:#8090a5;font-size:12px}.toolbar{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px}button{font:inherit;cursor:pointer} .btn{border:1px solid #d7dfeb;border-radius:10px;background:white;color:#24334b;padding:10px 14px;font-weight:650;font-size:13px;transition:background .12s,transform .12s}.btn:hover{background:#eef2f8}.btn:active{transform:scale(.98)}.primary{background:#243a60;color:white;border-color:#243a60}.primary:hover{background:#34517f}.board-card{background:#fff;border:1px solid #e0e6ef;border-radius:19px;padding:20px 12px 17px;box-shadow:0 12px 32px rgba(24,36,58,.045)}.board-wrap{max-width:550px;margin:0 auto;position:relative;padding:14px}.board{width:100%;aspect-ratio:1;position:relative;display:grid;grid-template-columns:repeat(9,1fr);grid-template-rows:repeat(9,1fr);border:2px solid #677487;background:#b8c3d1;border-radius:3px;overflow:visible}.cell{border:0;border-right:1px solid #cbd3df;border-bottom:1px solid #cbd3df;background:#fff;padding:0;min-width:0;min-height:0}.cell{border-right:1px solid #cbd3df;border-bottom:1px solid #cbd3df}.cell.black{background:#1f2937}.cell:focus-visible{outline:3px solid #559deb;outline-offset:-4px;z-index:1}.board.solution-mode .cell{cursor:default}.clue{position:absolute;z-index:3;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:clamp(11px,calc(255px / var(--n)),29px);height:clamp(11px,calc(255px / var(--n)),29px);border-radius:50%;background:#eef2f7;color:#27374d;border:1.5px solid #8291a4;font-weight:800;font-size:clamp(8px,calc(70px / var(--n)),14px);box-shadow:0 1px 3px rgba(15,23,42,.16);pointer-events:none;line-height:1}.clue.bad{background:#ffe4e6;color:#b91c1c;border-color:#f87171}.clue.good{background:#d9f9e7;color:#166534;border-color:#4ade80}.status{max-width:530px;margin:12px auto 1px;padding:10px 12px;min-height:42px;border-radius:9px;background:#f2f5fa;color:#4e617a;font-size:13px;line-height:1.55}.status.win{background:#ddf8e9;color:#166534}.status.fail{background:#fff1f2;color:#a32436}.legend{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:15px;margin-top:14px;color:#64748b;font-size:12px}.swatch{display:inline-block;vertical-align:middle;width:15px;height:15px;margin-right:5px;border:1px solid #aab6c6;border-radius:3px;background:white}.swatch.dark{background:#1f2937;border-color:#1f2937}.mini{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:13px}.info{background:white;border:1px solid #e0e6ef;border-radius:14px;padding:17px}.info h2{font-size:14px;margin:0 0 8px}.info p{font-size:13px;line-height:1.6;color:#5e7088;margin:0}.formula{display:block;margin:9px 0;border-radius:8px;background:#f2f5f9;padding:10px;font-size:12px;color:#33445a;font-weight:650;word-break:break-word}.board-card .small{color:#75849a;text-align:center;font-size:12px;margin:12px 0 0}@media(max-width:560px){body{padding:17px 10px 35px}.board-card{padding:12px 4px}.board-wrap{padding:11px}.clue{border-width:1px}.mini{grid-template-columns:1fr}.btn{padding:9px 11px;font-size:12px}}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:26px 14px 60px}.app{max-width:800px;margin:auto}.eyebrow{font-size:11px;letter-spacing:.17em;font-weight:800;color:#65758e;text-transform:uppercase}h1{font-size:clamp(27px,5vw,38px);letter-spacing:-.045em;margin:7px 0 6px}.subtitle{color:#64748b;margin:0 0 19px;line-height:1.5;font-size:14px}.dimensions{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-bottom:13px;font-size:13px;color:#37465c}.dimensions label{font-weight:700}.dimensions input{width:70px;border:1px solid #cbd5e1;border-radius:8px;padding:9px;font:inherit}.dimensions .hint{color:#8090a5;font-size:12px}.toolbar{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px}button{font:inherit;cursor:pointer} .btn{border:1px solid #d7dfeb;border-radius:10px;background:white;color:#24334b;padding:10px 14px;font-weight:650;font-size:13px;transition:background .12s,transform .12s}.btn:hover{background:#eef2f8}.btn:active{transform:scale(.98)}.primary{background:#243a60;color:white;border-color:#243a60}.primary:hover{background:#34517f}.board-card{background:#fff;border:1px solid #e0e6ef;border-radius:19px;padding:20px 12px 17px;box-shadow:0 12px 32px rgba(24,36,58,.045)}.board-wrap{max-width:700px;margin:0 auto;position:relative;padding:14px}.board{width:100%;aspect-ratio:var(--cols) / var(--rows);position:relative;display:grid;grid-template-columns:repeat(9,1fr);grid-template-rows:repeat(9,1fr);border:2px solid #677487;background:#b8c3d1;border-radius:3px;overflow:visible}.cell{border:0;border-right:1px solid #cbd3df;border-bottom:1px solid #cbd3df;background:#fff;padding:0;min-width:0;min-height:0}.cell{border-right:1px solid #cbd3df;border-bottom:1px solid #cbd3df}.cell.black{background:#1f2937}.cell.fixed{box-shadow:inset 0 0 0 3px #fbbf24;cursor:not-allowed}.cell.fixed:focus-visible{outline:3px solid #559deb}.cell:focus-visible{outline:3px solid #559deb;outline-offset:-4px;z-index:1}.board.solution-mode .cell{cursor:default}.clue{position:absolute;z-index:3;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:clamp(11px,calc(255px / var(--max-dim)),29px);height:clamp(11px,calc(255px / var(--max-dim)),29px);border-radius:50%;background:#eef2f7;color:#27374d;border:1.5px solid #8291a4;font-weight:800;font-size:clamp(8px,calc(70px / var(--max-dim)),14px);box-shadow:0 1px 3px rgba(15,23,42,.16);pointer-events:none;line-height:1}.clue.bad{background:#ffe4e6;color:#b91c1c;border-color:#f87171}.clue.good{background:#d9f9e7;color:#166534;border-color:#4ade80}.status{max-width:530px;margin:12px auto 1px;padding:10px 12px;min-height:42px;border-radius:9px;background:#f2f5fa;color:#4e617a;font-size:13px;line-height:1.55}.status.win{background:#ddf8e9;color:#166534}.status.fail{background:#fff1f2;color:#a32436}.legend{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:15px;margin-top:14px;color:#64748b;font-size:12px}.swatch{display:inline-block;vertical-align:middle;width:15px;height:15px;margin-right:5px;border:1px solid #aab6c6;border-radius:3px;background:white}.swatch.dark{background:#1f2937;border-color:#1f2937}.mini{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:13px}.info{background:white;border:1px solid #e0e6ef;border-radius:14px;padding:17px}.info h2{font-size:14px;margin:0 0 8px}.info p{font-size:13px;line-height:1.6;color:#5e7088;margin:0}.formula{display:block;margin:9px 0;border-radius:8px;background:#f2f5f9;padding:10px;font-size:12px;color:#33445a;font-weight:650;word-break:break-word}.board-card .small{color:#75849a;text-align:center;font-size:12px;margin:12px 0 0}@media(max-width:560px){body{padding:17px 10px 35px}.board-card{padding:12px 4px}.board-wrap{padding:11px}.clue{border-width:1px}.mini{grid-template-columns:1fr}.btn{padding:9px 11px;font-size:12px}}
 </style>
 </head>
 <body>
 <main class="app">
   <div class="eyebrow">Logic puzzle · <span id="sizeHeading">9 × 9</span></div>
-  <h1>Colouring Clue Conundrum</h1>
+  <h1>XOR Grid</h1>
   <p class="subtitle">Paint squares black or white to satisfy every circle. Each circle counts the XOR differences along the <strong>four edges</strong> of its surrounding 2×2 block.</p>
-  <div class="dimensions"><label for="sizeInput">Grid dimensions</label><input id="sizeInput" type="number" min="2" max="25" value="9" step="1" aria-label="Grid side length" /><span>× <strong id="sizeDisplay">9</strong></span><button class="btn" id="resizeBtn">Apply size</button><span class="hint">2–25 squares per side</span></div>
+  <div class="dimensions"><label for="rowsInput">Rows</label><input id="rowsInput" type="number" min="2" max="25" value="9" step="1" aria-label="Number of rows" /><label for="colsInput">Columns</label><input id="colsInput" type="number" min="2" max="25" value="9" step="1" aria-label="Number of columns" /><button class="btn" id="resizeBtn">Apply dimensions</button><span class="hint">2–25 rows and 2–25 columns</span></div>
+  <div class="dimensions"><label for="keepInput">Keep black squares</label><input id="keepInput" type="number" min="0" max="100" value="25" step="1" aria-label="Percentage of original black squares to keep" /><span>% of black squares</span><span class="hint">Applied when generating a new puzzle</span></div>
   <div class="toolbar">
     <button class="btn primary" id="newBtn">↻ New puzzle</button>
     <button class="btn" id="verifyBtn">✓ Verify</button>
@@ -23,26 +24,24 @@
   </div>
   <section class="board-card" aria-label="Puzzle area">
     <div class="board-wrap"><div class="board" id="board" role="group" aria-label="XOR puzzle grid"></div></div>
-    <div class="status" id="status" role="status" aria-live="polite">A hidden black square looks white until you click it. Start by clicking any square.</div>
-    <div class="legend"><span><span class="swatch"></span> White = 0</span><span><span class="swatch dark"></span> Black = 1</span><span>◯ Number = 0, 2, or 4</span></div>
+    <div class="status" id="status" role="status" aria-live="polite">Some black squares are given as fixed starting clues. Click the other squares to solve.</div>
+    <div class="legend"><span><span class="swatch"></span> White = 0</span><span><span class="swatch dark"></span> Black = 1</span><span><span class="swatch dark" style="box-shadow:inset 0 0 0 3px #fbbf24"></span> Fixed black</span><span>◯ Number = 0, 2, or 4</span></div>
     <p class="small">Click a square to toggle it. Verify checks the clues, not whether you recreated the original colouring.</p>
   </section>
-  <div class="mini">
-    
-  </div>
 </main>
 <script>
 (() => {
-  let N = 9;
+  let ROWS = 9, COLS = 9;
   const board = document.getElementById('board');
   const status = document.getElementById('status');
   const solutionBtn = document.getElementById('solutionBtn');
-  const sizeInput = document.getElementById('sizeInput');
+  const rowsInput = document.getElementById('rowsInput');
+  const colsInput = document.getElementById('colsInput');
+  const keepInput = document.getElementById('keepInput');
   const resizeBtn = document.getElementById('resizeBtn');
-  const sizeDisplay = document.getElementById('sizeDisplay');
   const sizeHeading = document.getElementById('sizeHeading');
-  const count = () => (N-1)*(N-1);
-  let answer = [], guesses = [], clues = [], revealed = false, verified = false;
+  const count = () => (ROWS-1)*(COLS-1);
+  let answer = [], guesses = [], clues = [], fixed = [], revealed = false, verified = false;
   let cells = [], circles = [];
   const xor = (a,b) => a === b ? 0 : 1;
   function score(grid, row, col) {
@@ -52,29 +51,30 @@
   function buildBoard() {
     board.replaceChildren();
     cells = []; circles = [];
-    board.style.gridTemplateColumns = `repeat(${N}, 1fr)`;
-    board.style.gridTemplateRows = `repeat(${N}, 1fr)`;
-    board.style.setProperty('--n', N);
-    board.setAttribute('aria-label', `${N} by ${N} XOR puzzle grid`);
-    sizeDisplay.textContent = N;
-    sizeHeading.textContent = `${N} × ${N}`;
-    for(let r=0;r<N;r++) {
+    board.style.gridTemplateColumns = `repeat(${COLS}, minmax(0, 1fr))`;
+    board.style.gridTemplateRows = `repeat(${ROWS}, minmax(0, 1fr))`;
+    board.style.setProperty('--cols', COLS);
+    board.style.setProperty('--rows', ROWS);
+    board.style.setProperty('--max-dim', Math.max(ROWS, COLS));
+    board.setAttribute('aria-label', `${ROWS} by ${COLS} XOR puzzle grid`);
+    sizeHeading.textContent = `${ROWS} × ${COLS}`;
+    for(let r=0;r<ROWS;r++) {
       cells[r]=[];
-      for(let c=0;c<N;c++) {
+      for(let c=0;c<COLS;c++) {
         const el=document.createElement('button');el.className='cell';el.type='button';
         el.addEventListener('click',()=>{
-          if(revealed)return;
+          if(revealed || fixed[r][c])return;
           guesses[r][c]^=1;verified=false;render();
           setStatus(`Editing your solution. Press Verify to check all ${count()} circles.`);
         });
         board.appendChild(el);cells[r][c]=el;
       }
     }
-    for(let r=0;r<N-1;r++) {
+    for(let r=0;r<ROWS-1;r++) {
       circles[r]=[];
-      for(let c=0;c<N-1;c++) {
+      for(let c=0;c<COLS-1;c++) {
         const el=document.createElement('span');el.className='clue';
-        el.style.top=(r+1)/N*100+'%';el.style.left=(c+1)/N*100+'%';
+        el.style.top=(r+1)/ROWS*100+'%';el.style.left=(c+1)/COLS*100+'%';
         board.appendChild(el);circles[r][c]=el;
       }
     }
@@ -83,46 +83,68 @@
   function render(){
     const grid=revealed?answer:guesses;
     board.classList.toggle('solution-mode',revealed);
-    for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+    for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
       cells[r][c].classList.toggle('black',!!grid[r][c]);
-      cells[r][c].setAttribute('aria-label',`Row ${r+1}, column ${c+1}, ${grid[r][c]?'black':'white'}`);
+      cells[r][c].classList.toggle('fixed',!!fixed[r][c]);
+      cells[r][c].disabled=!!fixed[r][c] || revealed;
+      cells[r][c].setAttribute('aria-label',`Row ${r+1}, column ${c+1}, ${grid[r][c]?'black':'white'}${fixed[r][c]?', fixed clue':''}`);
       cells[r][c].setAttribute('aria-pressed',!!grid[r][c]);
     }
-    for(let r=0;r<N-1;r++)for(let c=0;c<N-1;c++){
+    for(let r=0;r<ROWS-1;r++)for(let c=0;c<COLS-1;c++){
       const el=circles[r][c];el.textContent=clues[r][c];el.className='clue';
       if(verified){el.classList.add(score(guesses,r,c)===clues[r][c]?'good':'bad');}
     }
     solutionBtn.textContent=revealed?'Hide solution':'Show solution';
   }
   function newPuzzle(){
-    answer=Array.from({length:N},()=>Array.from({length:N},()=>Math.random()<.47?1:0));
-    guesses=Array.from({length:N},()=>Array(N).fill(0));
-    clues=Array.from({length:N-1},(_,r)=>Array.from({length:N-1},(_,c)=>score(answer,r,c)));
-    revealed=false;verified=false;render();setStatus('New puzzle ready. All originally black squares are hidden; fill them in to match the circle clues.');
+    answer=Array.from({length:ROWS},()=>Array.from({length:COLS},()=>Math.random()<.47?1:0));
+    const percent = Number(keepInput.value);
+    const keepPercent = Number.isFinite(percent) ? Math.max(0,Math.min(100,percent)) : 25;
+    keepInput.value = keepPercent;
+    fixed=Array.from({length:ROWS},()=>Array(COLS).fill(false));
+    const blackPositions=[];
+    for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++)if(answer[r][c])blackPositions.push([r,c]);
+    // Shuffle and retain the requested proportion of original black cells.
+    for(let i=blackPositions.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [blackPositions[i],blackPositions[j]]=[blackPositions[j],blackPositions[i]];
+    }
+    const keepCount=Math.round(blackPositions.length*keepPercent/100);
+    guesses=Array.from({length:ROWS},()=>Array(COLS).fill(0));
+    for(const [r,c] of blackPositions.slice(0,keepCount)){
+      fixed[r][c]=true;
+      guesses[r][c]=1;
+    }
+    clues=Array.from({length:ROWS-1},(_,r)=>Array.from({length:COLS-1},(_,c)=>score(answer,r,c)));
+    revealed=false;verified=false;render();setStatus(`New puzzle ready. ${keepCount} of ${blackPositions.length} black squares are visible and fixed. Fill in the remaining squares to match the circle clues.`);
   }
   document.getElementById('newBtn').addEventListener('click',newPuzzle);
-  document.getElementById('resetBtn').addEventListener('click',()=>{guesses=Array.from({length:N},()=>Array(N).fill(0));revealed=false;verified=false;render();setStatus('Guesses cleared. The clue numbers are unchanged.');});
+  document.getElementById('resetBtn').addEventListener('click',()=>{guesses=Array.from({length:ROWS},(_,r)=>Array.from({length:COLS},(_,c)=>fixed[r][c]?1:0));revealed=false;verified=false;render();setStatus('Guesses cleared. Fixed black squares and clue numbers are unchanged.');});
   document.getElementById('verifyBtn').addEventListener('click',()=>{
     revealed=false;verified=true;let matched=0;
-    for(let r=0;r<N-1;r++)for(let c=0;c<N-1;c++)if(score(guesses,r,c)===clues[r][c])matched++;
+    for(let r=0;r<ROWS-1;r++)for(let c=0;c<COLS-1;c++)if(score(guesses,r,c)===clues[r][c])matched++;
     render();
     if(matched===count())setStatus(`Solved! All ${count()} XOR clues match. Your colouring is valid.`,'win');
     else setStatus(`${matched} of ${count()} clues match. Red circles are incorrect; green circles match.`, 'fail');
   });
   solutionBtn.addEventListener('click',()=>{revealed=!revealed;verified=false;render();setStatus(revealed?'Showing the originally generated colouring. Click Hide solution to resume your guesses.':'Back to your guesses. Nothing was changed.');});
   function applySize() {
-    const proposed = Number(sizeInput.value);
-    if(!Number.isInteger(proposed) || proposed<2 || proposed>25) {
-      sizeInput.value = N;
-      setStatus('Choose a whole-number grid size between 2 and 25.', 'fail');
+    const rows = Number(rowsInput.value);
+    const cols = Number(colsInput.value);
+    if(!Number.isInteger(rows) || !Number.isInteger(cols) || rows<2 || rows>25 || cols<2 || cols>25) {
+      rowsInput.value = ROWS;
+      colsInput.value = COLS;
+      setStatus('Choose whole-number row and column counts between 2 and 25.', 'fail');
       return;
     }
-    N=proposed;
+    ROWS=rows;
+    COLS=cols;
     buildBoard();
     newPuzzle();
   }
   resizeBtn.addEventListener('click', applySize);
-  sizeInput.addEventListener('keydown', e => { if(e.key==='Enter') applySize(); });
+  rowsInput.addEventListener('keydown', e => { if(e.key==='Enter') applySize(); });
+  colsInput.addEventListener('keydown', e => { if(e.key==='Enter') applySize(); });
   buildBoard();
   newPuzzle();
 })();
