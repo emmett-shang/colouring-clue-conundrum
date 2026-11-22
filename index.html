@@ -13,9 +13,10 @@
 <main class="app">
   <div class="eyebrow">Logic puzzle · <span id="sizeHeading">9 × 9</span></div>
   <h1>Colouring Clue Conundrum</h1>
-  <p class="subtitle">Paint squares black or white to satisfy every circle. Each circle counts the XOR differences along the <strong>four edges</strong> of its surrounding 2×2 block.</p>
+  <p class="subtitle">Paint squares black or white to satisfy every visible circle. Each circle counts the XOR differences along the <strong>four edges</strong> of its surrounding 2×2 block.</p>
   <div class="dimensions"><label for="rowsInput">Rows</label><input id="rowsInput" type="number" min="2" max="25" value="9" step="1" aria-label="Number of rows" /><label for="colsInput">Columns</label><input id="colsInput" type="number" min="2" max="25" value="9" step="1" aria-label="Number of columns" /><button class="btn" id="resizeBtn">Apply dimensions</button><span class="hint">2–25 rows and 2–25 columns</span></div>
   <div class="dimensions"><label for="keepInput">Keep black squares</label><input id="keepInput" type="number" min="0" max="100" value="25" step="1" aria-label="Percentage of original black squares to keep" /><span>% of black squares</span><span class="hint">Applied when generating a new puzzle</span></div>
+  <div class="dimensions"><label for="coverageInput">Show XOR clues</label><input id="coverageInput" type="number" min="0" max="100" value="65" step="1" aria-label="Percentage of 2 by 2 blocks that have visible clues" /><span>% of 2×2 blocks</span><span class="hint">Randomly selected on each new puzzle</span></div>
   <div class="toolbar">
     <button class="btn primary" id="newBtn">↻ New puzzle</button>
     <button class="btn" id="verifyBtn">✓ Verify</button>
@@ -24,9 +25,9 @@
   </div>
   <section class="board-card" aria-label="Puzzle area">
     <div class="board-wrap"><div class="board" id="board" role="group" aria-label="XOR puzzle grid"></div></div>
-    <div class="status" id="status" role="status" aria-live="polite">Some black squares are given as fixed starting clues. Click the other squares to solve.</div>
+    <div class="status" id="status" role="status" aria-live="polite">Some black squares are fixed. Only blocks with visible numbered circles need to match.</div>
     <div class="legend"><span><span class="swatch"></span> White = 0</span><span><span class="swatch dark"></span> Black = 1</span><span><span class="swatch dark" style="box-shadow:inset 0 0 0 3px #fbbf24"></span> Fixed black</span><span>◯ Number = 0, 2, or 4</span></div>
-    <p class="small">Click a square to toggle it. Verify checks the clues, not whether you recreated the original colouring.</p>
+    <p class="small">Click a square to toggle it. Verify checks visible clues only, not whether you recreated the original colouring.</p>
   </section>
 </main>
 <script>
@@ -38,10 +39,12 @@
   const rowsInput = document.getElementById('rowsInput');
   const colsInput = document.getElementById('colsInput');
   const keepInput = document.getElementById('keepInput');
+  const coverageInput = document.getElementById('coverageInput');
   const resizeBtn = document.getElementById('resizeBtn');
   const sizeHeading = document.getElementById('sizeHeading');
-  const count = () => (ROWS-1)*(COLS-1);
-  let answer = [], guesses = [], clues = [], fixed = [], revealed = false, verified = false;
+  const totalBlocks = () => (ROWS-1)*(COLS-1);
+  const count = () => visibleClues.flat().filter(Boolean).length;
+  let answer = [], guesses = [], clues = [], visibleClues = [], fixed = [], revealed = false, verified = false;
   let cells = [], circles = [];
   const xor = (a,b) => a === b ? 0 : 1;
   function score(grid, row, col) {
@@ -91,8 +94,11 @@
       cells[r][c].setAttribute('aria-pressed',!!grid[r][c]);
     }
     for(let r=0;r<ROWS-1;r++)for(let c=0;c<COLS-1;c++){
-      const el=circles[r][c];el.textContent=clues[r][c];el.className='clue';
-      if(verified){el.classList.add(score(guesses,r,c)===clues[r][c]?'good':'bad');}
+      const el=circles[r][c];
+      const visible=visibleClues[r][c];
+      el.style.display=visible?'flex':'none';
+      el.textContent=visible?clues[r][c]:'';el.className='clue';
+      if(visible && verified){el.classList.add(score(guesses,r,c)===clues[r][c]?'good':'bad');}
     }
     solutionBtn.textContent=revealed?'Hide solution':'Show solution';
   }
@@ -116,16 +122,29 @@
       guesses[r][c]=1;
     }
     clues=Array.from({length:ROWS-1},(_,r)=>Array.from({length:COLS-1},(_,c)=>score(answer,r,c)));
-    revealed=false;verified=false;render();setStatus(`New puzzle ready. ${keepCount} of ${blackPositions.length} black squares are visible and fixed. Fill in the remaining squares to match the circle clues.`);
+    const coverageValue=Number(coverageInput.value);
+    const coveragePercent=Number.isFinite(coverageValue)?Math.max(0,Math.min(100,coverageValue)):65;
+    coverageInput.value=coveragePercent;
+    // Shuffle all clue positions and select exactly the requested rounded percentage.
+    const positions=[];
+    for(let r=0;r<ROWS-1;r++)for(let c=0;c<COLS-1;c++)positions.push([r,c]);
+    for(let i=positions.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [positions[i],positions[j]]=[positions[j],positions[i]];
+    }
+    visibleClues=Array.from({length:ROWS-1},()=>Array(COLS-1).fill(false));
+    const shownCount=Math.round(positions.length*coveragePercent/100);
+    for(const [r,c] of positions.slice(0,shownCount))visibleClues[r][c]=true;
+    revealed=false;verified=false;render();setStatus(`New puzzle ready. ${keepCount} of ${blackPositions.length} black squares are visible and fixed. ${shownCount} of ${totalBlocks()} XOR clues are shown. Fill in the remaining squares to match the visible clues.`);
   }
   document.getElementById('newBtn').addEventListener('click',newPuzzle);
-  document.getElementById('resetBtn').addEventListener('click',()=>{guesses=Array.from({length:ROWS},(_,r)=>Array.from({length:COLS},(_,c)=>fixed[r][c]?1:0));revealed=false;verified=false;render();setStatus('Guesses cleared. Fixed black squares and clue numbers are unchanged.');});
+  document.getElementById('resetBtn').addEventListener('click',()=>{guesses=Array.from({length:ROWS},(_,r)=>Array.from({length:COLS},(_,c)=>fixed[r][c]?1:0));revealed=false;verified=false;render();setStatus('Guesses cleared. Fixed black squares and visible clue numbers are unchanged.');});
   document.getElementById('verifyBtn').addEventListener('click',()=>{
     revealed=false;verified=true;let matched=0;
-    for(let r=0;r<ROWS-1;r++)for(let c=0;c<COLS-1;c++)if(score(guesses,r,c)===clues[r][c])matched++;
+    for(let r=0;r<ROWS-1;r++)for(let c=0;c<COLS-1;c++)if(visibleClues[r][c] && score(guesses,r,c)===clues[r][c])matched++;
     render();
-    if(matched===count())setStatus(`Solved! All ${count()} XOR clues match. Your colouring is valid.`,'win');
-    else setStatus(`${matched} of ${count()} clues match. Red circles are incorrect; green circles match.`, 'fail');
+    if(matched===count())setStatus(count()===0?'There are no visible XOR clues. Any colouring that respects the fixed squares is valid.':`Solved! All ${count()} visible XOR clues match. Your colouring is valid.`,'win');
+    else setStatus(`${matched} of ${count()} visible clues match. Red circles are incorrect; green circles match.`, 'fail');
   });
   solutionBtn.addEventListener('click',()=>{revealed=!revealed;verified=false;render();setStatus(revealed?'Showing the originally generated colouring. Click Hide solution to resume your guesses.':'Back to your guesses. Nothing was changed.');});
   function applySize() {
